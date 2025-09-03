@@ -8,4 +8,4 @@
 7. host both with gh actions etc etc - yml, workflows etc, hosting 
 8. refactor + introduce framework 
 9. find a purpose for api
-10. authentication, authoriation, validation, controllers blah blah blah 
+10. authentication, authoriation, validation, controllers blah blah blah blah
