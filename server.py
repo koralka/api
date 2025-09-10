@@ -7,20 +7,22 @@ from urllib.parse import urlparse, parse_qs
 
 class MyHandler(BaseHTTPRequestHandler):
     def do_GET(self):
-        if self.path == "/":
+        parsed = urlparse(self.path)
+        path = parsed.path
+        query = parse_qs(parsed.query)
+        if path == "/":
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             self.wfile.write(json.dumps({"message": "Hello, World!"}).encode())
-        elif self.path == "/time":
+        elif path == "/time":
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
             current_time = datetime.now().isoformat()
             self.wfile.write(json.dumps({"time": current_time}).encode())
-        elif self.path.startswith("/echo"):
-            query_components = parse_qs(urlparse(self.path).query)
-            message = query_components.get("message")
+        elif path == "/echo":
+            message = query.get('message', None)
             if message:
                 self.send_response(200)
                 self.send_header('Content-type', 'application/json')
